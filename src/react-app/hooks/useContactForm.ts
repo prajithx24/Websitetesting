@@ -59,6 +59,11 @@ export function useContactForm() {
         body: JSON.stringify(formData),
       });
 
+      // Check if response is ok before trying to parse JSON
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result = await response.json();
 
       if (result.success) {

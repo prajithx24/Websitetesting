@@ -151,7 +151,7 @@ const products = [
     description: "Traditional jackfruit puttu powder with natural sweetness and rich flavor."
   },
 
-  // Powder Collection - Single rate for most, special rate for Green Chilli
+  // Powder Collection - Coming Soon
   {
     id: 13,
     name: "Carrot Rice Powder",
@@ -161,7 +161,8 @@ const products = [
     ],
     rating: 4.8,
     image: "carrot rice powder.jpg",
-    description: "Nutritious carrot-infused rice powder for baby food and health drinks."
+    description: "Nutritious carrot-infused rice powder for baby food and health drinks.",
+    status: "coming-soon"
   },
   {
     id: 14,
@@ -172,7 +173,8 @@ const products = [
     ],
     rating: 4.9,
     image: "JACKFRUIT PUTTU POWDER.jpg",
-    description: "Natural jackfruit powder, rich in vitamins and minerals."
+    description: "Natural jackfruit powder, rich in vitamins and minerals.",
+    status: "coming-soon"
   },
   {
     id: 15,
@@ -183,7 +185,8 @@ const products = [
     ],
     rating: 4.8,
     image: "sprouted ragi powder.jpg",
-    description: "Sprouted finger millet powder with enhanced nutritional value."
+    description: "Sprouted finger millet powder with enhanced nutritional value.",
+    status: "coming-soon"
   },
   {
     id: 16,
@@ -194,7 +197,8 @@ const products = [
     ],
     rating: 4.7,
     image: "corn powder.jpg",
-    description: "Fine corn powder perfect for making traditional dishes."
+    description: "Fine corn powder perfect for making traditional dishes.",
+    status: "coming-soon"
   },
   {
     id: 17,
@@ -205,7 +209,8 @@ const products = [
     ],
     rating: 4.9,
     image: "banana powder.jpg",
-    description: "Natural banana powder, excellent for baby food and health drinks."
+    description: "Natural banana powder, excellent for baby food and health drinks.",
+    status: "coming-soon"
   },
   {
     id: 18,
@@ -216,19 +221,10 @@ const products = [
     ],
     rating: 4.9,
     image: "muringa leaves powder.jpg",
-    description: "Pure moringa leaves powder, nature's multivitamin."
+    description: "Pure moringa leaves powder, nature's multivitamin.",
+    status: "coming-soon"
   },
-  {
-    id: 19,
-    name: "Carrot Powder",
-    category: "Powders",
-    weightOptions: [
-      { weight: "250g", price: "₹120" }
-    ],
-    rating: 4.8,
-    image: "CARROT PUTTU POWDER.jpg",
-    description: "Pure carrot powder rich in beta-carotene and vitamins."
-  },
+
   {
     id: 19,
     name: "Beetroot Powder",
@@ -238,12 +234,13 @@ const products = [
     ],
     rating: 4.7,
     image: "BEETROOT PUTTU POWDER.jpg",
-    description: "Natural beetroot powder for coloring and nutrition."
+    description: "Natural beetroot powder for coloring and nutrition.",
+    status: "coming-soon"
   },
   {
     id: 20,
     name: "Chilli Powder",
-    category: "Powders",
+    category: "Spices",
     weightOptions: [
       { weight: "250g", price: "₹60" }
     ],
@@ -254,7 +251,7 @@ const products = [
   {
     id: 21,
     name: "Green Chilli Powder",
-    category: "Powders",
+    category: "Spices",
     weightOptions: [
       { weight: "200g", price: "₹70" }
     ],
@@ -265,7 +262,7 @@ const products = [
   {
     id: 22,
     name: "Turmeric Powder",
-    category: "Powders",
+    category: "Spices",
     weightOptions: [
       { weight: "250g", price: "₹50" }
     ],
@@ -276,7 +273,7 @@ const products = [
   {
     id: 23,
     name: "Coriander Powder",
-    category: "Powders",
+    category: "Spices",
     weightOptions: [
       { weight: "250g", price: "₹45" }
     ],
@@ -285,7 +282,7 @@ const products = [
     description: "Freshly ground coriander powder with aromatic fragrance."
   },
 
-  // Rava Collection - Single rate
+  // Rava Collection - Coming Soon
   {
     id: 24,
     name: "Ragi Rava",
@@ -295,7 +292,8 @@ const products = [
     ],
     rating: 4.8,
     image: "ragi rava.jpg",
-    description: "Coarse finger millet rava for upma and traditional breakfast dishes."
+    description: "Coarse finger millet rava for upma and traditional breakfast dishes.",
+    status: "coming-soon"
   },
   {
     id: 25,
@@ -306,7 +304,8 @@ const products = [
     ],
     rating: 4.7,
     image: "corn rava.jpg",
-    description: "Coarse corn rava perfect for upma and Kerala breakfast items."
+    description: "Coarse corn rava perfect for upma and Kerala breakfast items.",
+    status: "coming-soon"
   },
 
   // Ready Mixes Collection - Single rate
@@ -334,7 +333,7 @@ const products = [
   }
 ];
 
-const categories = ["All", "Puttupodi", "Powders", "Rava", "Ready Mixes"];
+const categories = ["All", "Puttupodi", "Spices", "Ready Mixes", "Powders", "Rava"];
 
 // Add dynamic image resolver
 const imageModules = import.meta.glob('../../product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
@@ -398,7 +397,10 @@ export default function Products() {
                 {category}
                 {category !== "All" && (
                   <span className="ml-2 text-xs opacity-75">
-                    ({products.filter(p => p.category === category).length})
+                    ({products.filter(p => p.category === category && !(p as any).status).length} available
+                    {products.filter(p => p.category === category && (p as any).status === "coming-soon").length > 0 && 
+                      `, ${products.filter(p => p.category === category && (p as any).status === "coming-soon").length} coming soon`
+                    })
                   </span>
                 )}
               </button>
@@ -437,6 +439,15 @@ export default function Products() {
                   <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed">{product.description}</p>
                   
+                  {/* Coming Soon Badge */}
+                  {(product as any).status === "coming-soon" && (
+                    <div className="mb-4">
+                      <span className="inline-block bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-medium">
+                        Coming Soon
+                      </span>
+                    </div>
+                  )}
+                  
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (
@@ -447,21 +458,32 @@ export default function Products() {
                       ))}
                       <span className="text-sm text-gray-600 ml-2">({product.rating})</span>
                     </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-amber-700">
-                        {product.weightOptions[0].price}
-                      </div>
-                      {product.weightOptions.length > 1 && (
-                        <div className="text-sm text-gray-500">
-                          {product.weightOptions.length} weight options
+                    {!(product as any).status && (
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-amber-700">
+                          {product.weightOptions[0].price}
                         </div>
-                      )}
-                    </div>
+                        {product.weightOptions.length > 1 && (
+                          <div className="text-sm text-gray-500">
+                            {product.weightOptions.length} weight options
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                   
-                  <AddToCartButton 
-                    product={product}
-                  />
+                  {(product as any).status === "coming-soon" ? (
+                    <button 
+                      disabled
+                      className="w-full bg-gray-300 text-gray-500 px-6 py-3 rounded-lg font-medium cursor-not-allowed"
+                    >
+                      Coming Soon
+                    </button>
+                  ) : (
+                    <AddToCartButton 
+                      product={product}
+                    />
+                  )}
                 </div>
               </div>
             ))}
@@ -506,10 +528,11 @@ export default function Products() {
             We can create custom blends and products based on traditional Kerala recipes. Contact us for special orders.
           </p>
           <WhatsAppButton
-            message="Hello! I'm interested in custom Kerala food products and would like to discuss special orders with Royal Taste Food Products."
+            phoneNumber="919388051003"
+            message="Hello! I'm interested in ordering Kerala food products from Royal Taste Food Products. Can you help me with the order process and pricing?"
             className="bg-white text-amber-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
           >
-            Contact Us Now
+            📱 Order via WhatsApp
           </WhatsAppButton>
         </div>
       </section>
