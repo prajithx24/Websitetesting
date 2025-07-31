@@ -14,6 +14,7 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 5000,
+    target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -30,5 +31,8 @@ export default defineConfig({
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router'],
   },
 });
