@@ -73,7 +73,7 @@ export default function Footer() {
             THIRUVAZHIYODE PO, Palakkad, Kerala-679514
           </p>
           <div className="flex items-center justify-center gap-2 mt-2">
-            <img src="public/assets/fssailogo.png" alt="FSSAI Logo" className="h-6 w-auto" />
+            <img src="/fssai.png" alt="FSSAI Logo" className="h-6 w-auto" />
             <p className="text-gray-400 text-sm">
               FSSAI License No: 11325009000514
             </p>
