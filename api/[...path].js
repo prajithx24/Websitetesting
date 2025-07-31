@@ -180,5 +180,19 @@ app.get('/api/health', (c) => {
 
 // Export as Vercel serverless function
 export default async function handler(req, res) {
-  return app.fetch(req, res);
+  try {
+    const response = await app.fetch(req, res);
+    return response;
+  } catch (error) {
+    console.error('Vercel handler error:', error);
+    return new Response(JSON.stringify({
+      success: false,
+      message: 'Internal server error'
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 } 
