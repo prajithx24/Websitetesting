@@ -19,6 +19,7 @@
   "devDependencies": {
     "@eslint/js": "9.25.1",
     "@getmocha/vite-plugins": "latest",
+    "@rollup/rollup-linux-x64-gnu": "^4.18.0",
     "@types/node": "22.14.1",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
@@ -42,8 +43,5 @@
     "lint": "eslint .",
     "start": "npm run dev",
     "vercel-build": "npm run build:vercel"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.18.0"
   }
 }
