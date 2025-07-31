@@ -3,7 +3,7 @@ import { useContactForm } from '../hooks/useContactForm';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 export default function Contact() {
-  const { formData, errors, isSubmitting, submitStatus, updateField, submitForm } = useContactForm();
+  const { formData, errors, submitStatus, updateField, submitForm } = useContactForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
