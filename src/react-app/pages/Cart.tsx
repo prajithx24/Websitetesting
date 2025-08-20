@@ -1,5 +1,5 @@
 import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useCart } from '../contexts/CartContext';
 import WhatsAppButton from '../components/WhatsAppButton';
 
