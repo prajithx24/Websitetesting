@@ -161,8 +161,7 @@ const products = [
     ],
     rating: 4.8,
     image: "carrot rice powder.jpg",
-    description: "Nutritious carrot-infused rice powder for baby food and health drinks.",
-    status: "coming-soon"
+    description: "Nutritious carrot-infused rice powder for baby food and health drinks."
   },
   {
     id: 14,
@@ -173,8 +172,7 @@ const products = [
     ],
     rating: 4.9,
     image: "JACKFRUIT PUTTU POWDER.jpg",
-    description: "Natural jackfruit powder, rich in vitamins and minerals.",
-    status: "coming-soon"
+    description: "Natural jackfruit powder, rich in vitamins and minerals."
   },
   {
     id: 15,
@@ -185,8 +183,7 @@ const products = [
     ],
     rating: 4.8,
     image: "sprouted ragi powder.jpg",
-    description: "Sprouted finger millet powder with enhanced nutritional value.",
-    status: "coming-soon"
+    description: "Sprouted finger millet powder with enhanced nutritional value."
   },
   {
     id: 16,
@@ -197,8 +194,7 @@ const products = [
     ],
     rating: 4.7,
     image: "corn powder.jpg",
-    description: "Fine corn powder perfect for making traditional dishes.",
-    status: "coming-soon"
+    description: "Fine corn powder perfect for making traditional dishes."
   },
   {
     id: 17,
@@ -209,8 +205,7 @@ const products = [
     ],
     rating: 4.9,
     image: "banana powder.jpg",
-    description: "Natural banana powder, excellent for baby food and health drinks.",
-    status: "coming-soon"
+    description: "Natural banana powder, excellent for baby food and health drinks."
   },
   {
     id: 18,
@@ -221,8 +216,7 @@ const products = [
     ],
     rating: 4.9,
     image: "muringa leaves powder.jpg",
-    description: "Pure moringa leaves powder, nature's multivitamin.",
-    status: "coming-soon"
+    description: "Pure moringa leaves powder, nature's multivitamin."
   },
 
   {
@@ -233,9 +227,8 @@ const products = [
       { weight: "250g", price: "₹115" }
     ],
     rating: 4.7,
-    image: "BEETROOT PUTTU POWDER.jpg",
-    description: "Natural beetroot powder for coloring and nutrition.",
-    status: "coming-soon"
+    image: "beetroot powder.jpg",
+    description: "Natural beetroot powder for coloring and nutrition."
   },
   {
     id: 20,
@@ -292,8 +285,7 @@ const products = [
     ],
     rating: 4.8,
     image: "ragi rava.jpg",
-    description: "Coarse finger millet rava for upma and traditional breakfast dishes.",
-    status: "coming-soon"
+    description: "Coarse finger millet rava for upma and traditional breakfast dishes."
   },
   {
     id: 25,
@@ -304,8 +296,7 @@ const products = [
     ],
     rating: 4.7,
     image: "corn rava.jpg",
-    description: "Coarse corn rava perfect for upma and Kerala breakfast items.",
-    status: "coming-soon"
+    description: "Coarse corn rava perfect for upma and Kerala breakfast items."
   },
 
   // Ready Mixes Collection - Single rate
@@ -397,10 +388,7 @@ export default function Products() {
                 {category}
                 {category !== "All" && (
                   <span className="ml-2 text-xs opacity-75">
-                    ({products.filter(p => p.category === category && !(p as any).status).length} available
-                    {products.filter(p => p.category === category && (p as any).status === "coming-soon").length > 0 && 
-                      `, ${products.filter(p => p.category === category && (p as any).status === "coming-soon").length} coming soon`
-                    })
+                    ({products.filter(p => p.category === category).length} available)
                   </span>
                 )}
               </button>
@@ -439,14 +427,7 @@ export default function Products() {
                   <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed">{product.description}</p>
                   
-                  {/* Coming Soon Badge */}
-                  {(product as any).status === "coming-soon" && (
-                    <div className="mb-4">
-                      <span className="inline-block bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-medium">
-                        Coming Soon
-                      </span>
-                    </div>
-                  )}
+
                   
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-1">
@@ -458,32 +439,21 @@ export default function Products() {
                       ))}
                       <span className="text-sm text-gray-600 ml-2">({product.rating})</span>
                     </div>
-                    {!(product as any).status && (
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-amber-700">
-                          {product.weightOptions[0].price}
-                        </div>
-                        {product.weightOptions.length > 1 && (
-                          <div className="text-sm text-gray-500">
-                            {product.weightOptions.length} weight options
-                          </div>
-                        )}
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-amber-700">
+                        {product.weightOptions[0].price}
                       </div>
-                    )}
+                      {product.weightOptions.length > 1 && (
+                        <div className="text-sm text-gray-500">
+                          {product.weightOptions.length} weight options
+                        </div>
+                      )}
+                    </div>
                   </div>
                   
-                  {(product as any).status === "coming-soon" ? (
-                    <button 
-                      disabled
-                      className="w-full bg-gray-300 text-gray-500 px-6 py-3 rounded-lg font-medium cursor-not-allowed"
-                    >
-                      Coming Soon
-                    </button>
-                  ) : (
-                    <AddToCartButton 
-                      product={product}
-                    />
-                  )}
+                  <AddToCartButton 
+                    product={product}
+                  />
                 </div>
               </div>
             ))}
