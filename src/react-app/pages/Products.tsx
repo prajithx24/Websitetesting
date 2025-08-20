@@ -227,7 +227,7 @@ const products = [
       { weight: "250g", price: "₹115" }
     ],
     rating: 4.7,
-    image: "beetroot powder.jpg",
+    image: "beetroot podi.jpg",
     description: "Natural beetroot powder for coloring and nutrition."
   },
   {
@@ -326,15 +326,9 @@ const products = [
 
 const categories = ["All", "Puttupodi", "Spices", "Ready Mixes", "Powders", "Rava"];
 
-// Add dynamic image resolver
-const imageModules = import.meta.glob('../../product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
+// Simple image resolver - all images now in public/product-images
 function getImageUrl(filename: string): string {
-  const entry = Object.entries(imageModules).find(([path]) => path.toLowerCase().endsWith(`/${filename.toLowerCase()}`));
-  if (!entry) {
-    // Return a fallback image instead of logging
-    return '/placeholder.jpg';
-  }
-  return entry[1] as string;
+  return `/product-images/${filename}`;
 }
 
 export default function Products() {
