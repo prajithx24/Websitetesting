@@ -99,7 +99,7 @@ const products = [
       { weight: "1kg", price: "₹220" }
     ],
     rating: 4.6,
-    image: "TAPIOCA PUTTU POWDER.jpg",
+    image: "15.png",
     description: "Traditional tapioca puttu powder, a Kerala breakfast staple."
   },
   {
@@ -135,7 +135,7 @@ const products = [
       { weight: "1kg", price: "₹220" }
     ],
     rating: 4.8,
-    image: "CARROT PUTTU POWDER.jpg",
+    image: "13.png",
     description: "Nutritious carrot-infused puttu powder with natural sweetness and vibrant color."
   },
   {
