@@ -326,17 +326,8 @@ const products = [
 
 const categories = ["All", "Puttupodi", "Spices", "Ready Mixes", "Powders", "Rava"];
 
-// Add dynamic image resolver for src/product-images
-const imageModules = import.meta.glob('../product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
-
+// Simple image resolver - all images now in public/product-images
 function getImageUrl(filename: string): string {
-  // First try to find in src/product-images
-  const entry = Object.entries(imageModules).find(([path]) => path.toLowerCase().endsWith(`/${filename.toLowerCase()}`));
-  if (entry) {
-    return entry[1] as string;
-  }
-  
-  // If not found in src, try public/product-images
   return `/product-images/${filename}`;
 }
 
