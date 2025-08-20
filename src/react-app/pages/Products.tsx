@@ -1,11 +1,27 @@
-import { Star, Eye } from 'lucide-react';
-import { useState } from 'react';
-import AddToCartButton from '../components/AddToCartButton';
-import QuickViewModal from '../components/QuickViewModal';
-import WhatsAppButton from '../components/WhatsAppButton';
+import { Star, Eye, Search } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
 
-const products = [
-  // Puttupodi Collection - Different rates for 500g and 1kg
+// --- TYPE DEFINITIONS ---
+// For better type safety and code clarity
+interface WeightOption {
+  weight: string;
+  price: string;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  category: string;
+  weightOptions: WeightOption[];
+  rating: number;
+  image: string;
+  description: string;
+}
+
+// --- MOCK DATA ---
+// In a real application, this would come from an API or a Headless CMS
+const products: Product[] = [
+    // Puttupodi Collection - Different rates for 500g and 1kg
   {
     id: 1,
     name: "Steamed Puttupodi",
@@ -151,7 +167,7 @@ const products = [
     description: "Traditional jackfruit puttu powder with natural sweetness and rich flavor."
   },
 
-  // Powder Collection - Coming Soon
+  // Powder Collection
   {
     id: 13,
     name: "Carrot Rice Powder",
@@ -275,7 +291,7 @@ const products = [
     description: "Freshly ground coriander powder with aromatic fragrance."
   },
 
-  // Rava Collection - Coming Soon
+  // Rava Collection
   {
     id: 24,
     name: "Ragi Rava",
@@ -299,7 +315,7 @@ const products = [
     description: "Coarse corn rava perfect for upma and Kerala breakfast items."
   },
 
-  // Ready Mixes Collection - Single rate
+  // Ready Mixes Collection
   {
     id: 26,
     name: "Dosa/Idli Batter",
@@ -323,24 +339,139 @@ const products = [
     description: "Instant mix for preparing authentic Kerala appam and idiappam."
   }
 ];
-
 const categories = ["All", "Puttupodi", "Spices", "Ready Mixes", "Powders", "Rava"];
 
-// Simple image resolver - all images now in public/product-images
+// --- UTILITY FUNCTIONS ---
 function getImageUrl(filename: string): string {
+  // Assuming images are in a public folder accessible from the root
   return `/product-images/${filename}`;
 }
 
-export default function Products() {
+// --- DUMMY COMPONENTS (for self-containment) ---
+// In a real app, these would be in their own files.
+const AddToCartButton = ({ product }: { product: Product }) => (
+  <button className="w-full bg-amber-700 text-white py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors">
+    Add to Cart
+  </button>
+);
+
+const QuickViewModal = ({ product, isOpen, onClose }: { product: (Product & { image: string }) | null, isOpen: boolean, onClose: () => void }) => {
+  if (!isOpen || !product) return null;
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg max-w-md w-full p-6 relative">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800">&times;</button>
+        <img src={product.image} alt={product.name} className="w-full h-64 object-cover rounded-lg mb-4" />
+        <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
+        <p className="text-gray-600 mb-4">{product.description}</p>
+        <div className="text-xl font-bold text-amber-700 mb-4">
+            {product.weightOptions.length > 1 
+                ? `${product.weightOptions[0].price} - ${product.weightOptions[product.weightOptions.length - 1].price}`
+                : product.weightOptions[0].price}
+        </div>
+        <AddToCartButton product={product} />
+      </div>
+    </div>
+  );
+};
+
+const WhatsAppButton = ({ phoneNumber, message, className, children }: { phoneNumber: string, message: string, className: string, children: React.ReactNode }) => (
+  <a 
+    href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={className}
+  >
+    {children}
+  </a>
+);
+
+// --- REUSABLE PRODUCT CARD COMPONENT ---
+const ProductCard = ({ product, onQuickView }: { product: Product, onQuickView: (product: Product) => void }) => {
+  
+  // Function to format the price display
+  const getPriceDisplay = () => {
+    if (product.weightOptions.length > 1) {
+      const firstPrice = product.weightOptions[0].price;
+      const lastPrice = product.weightOptions[product.weightOptions.length - 1].price;
+      return `${firstPrice} - ${lastPrice}`;
+    }
+    return product.weightOptions[0].price;
+  };
+
+  return (
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group border border-amber-100 flex flex-col">
+      <div className="relative overflow-hidden">
+        <img 
+          src={getImageUrl(product.image)} 
+          alt={product.name}
+          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/FFF0DB/333?text=Image+Not+Found'; }}
+        />
+        <div className="absolute top-4 right-4 bg-amber-700 text-white px-3 py-1 rounded-full text-sm font-medium">
+          {product.category}
+        </div>
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+          <button 
+            onClick={() => onQuickView(product)}
+            className="bg-white text-gray-800 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2 hover:bg-gray-50"
+          >
+            <Eye className="w-4 h-4" />
+            Quick View
+          </button>
+        </div>
+      </div>
+      
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
+        <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-grow">{product.description}</p>
+        
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, i) => (
+              <Star 
+                key={i} 
+                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+              />
+            ))}
+            <span className="text-sm text-gray-600 ml-2">({product.rating})</span>
+          </div>
+          <div className="text-right">
+            <div className="text-lg font-bold text-amber-700">
+              {getPriceDisplay()}
+            </div>
+            {product.weightOptions.length > 1 && (
+              <div className="text-sm text-gray-500">
+                {product.weightOptions.length} weight options
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <AddToCartButton product={product} />
+      </div>
+    </div>
+  );
+};
+
+// --- MAIN PAGE COMPONENT ---
+export default function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [quickViewProduct, setQuickViewProduct] = useState<typeof products[0] | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
-  const filteredProducts = selectedCategory === "All" 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+  // Memoize filtered products to avoid re-calculating on every render
+  const filteredProducts = useMemo(() => {
+    return products
+      .filter(product => selectedCategory === "All" || product.category === selectedCategory)
+      .filter(product => 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  }, [selectedCategory, searchTerm]);
 
-  const handleQuickView = (product: typeof products[0]) => {
+  const handleQuickView = (product: Product) => {
     setQuickViewProduct(product);
     setIsQuickViewOpen(true);
   };
@@ -351,7 +482,7 @@ export default function Products() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 font-sans">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -359,30 +490,43 @@ export default function Products() {
             Our <span className="text-amber-700">Traditional Products</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Discover our carefully crafted collection of 28 authentic Kerala food products, 
+            Discover our carefully crafted collection of authentic Kerala food products, 
             made with traditional recipes from Thiruvazhiyode, Palakkad.
           </p>
         </div>
       </section>
 
-      {/* Categories Filter */}
-      <section className="px-4 mb-12">
+      {/* Filters Section */}
+      <section className="px-4 mb-12 sticky top-0 bg-gradient-to-br from-amber-50 to-orange-50 py-4 z-10 shadow-sm">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {/* Search Bar */}
+          <div className="relative mb-8 max-w-xl mx-auto">
+            <input
+              type="text"
+              placeholder="Search for products like 'Ragi' or 'Moringa'..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-5 py-3 pl-12 rounded-full border-2 border-amber-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+            />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          </div>
+
+          {/* Category Buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full transition-all duration-300 shadow-sm border-2 font-medium ${
+                className={`px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm border-2 font-medium text-sm md:text-base ${
                   selectedCategory === category
                     ? 'bg-amber-700 text-white border-amber-700'
-                    : 'bg-white text-gray-700 hover:bg-amber-700 hover:text-white border-amber-200 hover:border-amber-700'
+                    : 'bg-white text-gray-700 hover:bg-amber-100 hover:border-amber-300 border-amber-200'
                 }`}
               >
                 {category}
                 {category !== "All" && (
                   <span className="ml-2 text-xs opacity-75">
-                    ({products.filter(p => p.category === category).length} available)
+                    ({products.filter(p => p.category === category).length})
                   </span>
                 )}
               </button>
@@ -394,66 +538,18 @@ export default function Products() {
       {/* Products Grid */}
       <section className="px-4 pb-20">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group border border-amber-100">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={getImageUrl(product.image)} 
-                    alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 right-4 bg-amber-700 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {product.category}
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                    <button 
-                      onClick={() => handleQuickView(product)}
-                      className="bg-white text-gray-800 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2 hover:bg-gray-50"
-                    >
-                      <Eye className="w-4 h-4" />
-                      Quick View
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">{product.description}</p>
-                  
-
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                        />
-                      ))}
-                      <span className="text-sm text-gray-600 ml-2">({product.rating})</span>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-amber-700">
-                        {product.weightOptions[0].price}
-                      </div>
-                      {product.weightOptions.length > 1 && (
-                        <div className="text-sm text-gray-500">
-                          {product.weightOptions.length} weight options
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <AddToCartButton 
-                    product={product}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-          
-
+          {filteredProducts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} onQuickView={handleQuickView} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <h3 className="text-2xl font-semibold text-gray-700">No Products Found</h3>
+              <p className="text-gray-500 mt-2">Try adjusting your search or category filters.</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -474,7 +570,7 @@ export default function Products() {
           <WhatsAppButton
             phoneNumber="919388051003"
             message="Hello! I'm interested in ordering Kerala food products from Royal Taste Food Products. Can you help me with the order process and pricing?"
-            className="bg-white text-amber-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+            className="bg-white text-amber-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors inline-block"
           >
             📱 Order via WhatsApp
           </WhatsAppButton>
