@@ -349,7 +349,8 @@ function getImageUrl(filename: string): string {
 
 // --- DUMMY COMPONENTS (for self-containment) ---
 // In a real app, these would be in their own files.
-const AddToCartButton = ({ product }: { product: Product }) => (
+// FIXED: Removed the unused 'product' prop to resolve the build error.
+const AddToCartButton = () => (
   <button className="w-full bg-amber-700 text-white py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors">
     Add to Cart
   </button>
@@ -369,7 +370,8 @@ const QuickViewModal = ({ product, isOpen, onClose }: { product: (Product & { im
                 ? `${product.weightOptions[0].price} - ${product.weightOptions[product.weightOptions.length - 1].price}`
                 : product.weightOptions[0].price}
         </div>
-        <AddToCartButton product={product} />
+        {/* FIXED: Removed the unused 'product' prop */}
+        <AddToCartButton />
       </div>
     </div>
   );
@@ -448,7 +450,8 @@ const ProductCard = ({ product, onQuickView }: { product: Product, onQuickView: 
           </div>
         </div>
         
-        <AddToCartButton product={product} />
+        {/* FIXED: Removed the unused 'product' prop */}
+        <AddToCartButton />
       </div>
     </div>
   );
