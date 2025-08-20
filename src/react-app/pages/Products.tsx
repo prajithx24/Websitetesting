@@ -227,7 +227,7 @@ const products = [
       { weight: "250g", price: "₹115" }
     ],
     rating: 4.7,
-    image: "beetroot powder.jpg",
+    image: "BEETROOT PUTTU POWDER1.jpg",
     description: "Natural beetroot powder for coloring and nutrition."
   },
   {
