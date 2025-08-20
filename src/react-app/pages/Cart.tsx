@@ -1,10 +1,10 @@
 import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 // Add dynamic image resolver
-const imageModules = import.meta.glob('../../product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
+const imageModules = import.meta.glob('../product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
 function getImageUrl(filename: string): string {
   const entry = Object.entries(imageModules).find(([path]) => path.toLowerCase().endsWith(`/${filename.toLowerCase()}`));
   if (!entry) {

@@ -167,15 +167,15 @@ export default function Contact() {
                     </p>
                   </div>
                   <div className="my-8 rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.86902120656273!2d76.38942540807135!3d10.89487435219784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7d71f2997f245%3A0x1e37e2e9e677ddaf!2sRoyal%20Taste%20Restaurant!5e0!3m2!1sen!2sin!4v1753535659644!5m2!1sen!2sin"
-                      width="100%"
-                      height="350"
-                      style={{ border: 0 }}
-                      allowFullScreen={true}
-                      loading="lazy"
+                    <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.904250492887!2d76.3897053!3d10.894881099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7d7797388b109%3A0x9505dc8f2718e53c!2sRoyal%20Taste%20Food%20Products!5e0!3m2!1sen!2sin!4v1755714926536!5m2!1sen!2sin" 
+                      width="100%" 
+                      height="350" 
+                      style={{ border: 0 }} 
+                      allowFullScreen={true} 
+                      loading="lazy" 
                       referrerPolicy="no-referrer-when-downgrade"
-                      title="Royal Taste Location"
+                      title="Royal Taste Food Products Location"
                     ></iframe>
                   </div>
                   
@@ -204,17 +204,7 @@ export default function Contact() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-500 rounded flex items-center justify-center flex-shrink-0">
-                      <img src="/fssai-seeklogo.png" alt="FSSAI" className="w-7 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 mb-1">FSSAI Certification</h3>
-                      <p className="text-gray-600 text-sm">
-                        License No: 11325009000514
-                      </p>
-                    </div>
-                  </div>
+
                   
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">

@@ -208,22 +208,19 @@ export default function About() {
                     NEAR SREEKRISHNAPURAM POLICE STATION,<br />
                     THIRUVAZHIYODE PO, Palakkad, Kerala-679514
                   </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <img src="/fssai-seeklogo.png" alt="FSSAI Logo" className="h-4 w-auto" />
-                    <span className="text-sm text-amber-700">FSSAI License No: 11325009000514</span>
-                  </div>
+
                 </div>
               </div>
               <div className="mt-8 rounded-lg overflow-hidden shadow-lg">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.86902120656273!2d76.38942540807135!3d10.89487435219784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7d71f2997f245%3A0x1e37e2e9e677ddaf!2sRoyal%20Taste%20Restaurant!5e0!3m2!1sen!2sin!4v1753535659644!5m2!1sen!2sin"
-                  width="100%"
-                  height="350"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.904250492887!2d76.3897053!3d10.894881099999997!2m2!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7d7797388b109%3A0x9505dc8f2718e53c!2sRoyal%20Taste%20Food%20Products!5e0!3m2!1sen!2sin!4v1755714926536!5m2!1sen!2sin" 
+                  width="100%" 
+                  height="350" 
+                  style={{ border: 0 }} 
+                  allowFullScreen 
+                  loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Royal Taste Location"
+                  title="Royal Taste Food Products Location"
                 ></iframe>
               </div>
             </div>

@@ -17,10 +17,10 @@ export default function Footer() {
               Bringing you the finest quality traditional flavors with modern convenience.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=61579212712298" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors">
+              <a href="https://www.instagram.com/royaltastesfoodproducts/" className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -52,11 +52,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-amber-400 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">+91 98765 43210</p>
+                <p className="text-gray-300 text-sm">+91 93880 51003</p>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-amber-400 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">info@royaltastefoods.com</p>
+                <p className="text-gray-300 text-sm">royaltastefoodsproducts@gmail.com</p>
               </div>
             </div>
           </div>
@@ -72,12 +72,7 @@ export default function Footer() {
             NEAR SREEKRISHNAPURAM POLICE STATION,<br />
             THIRUVAZHIYODE PO, Palakkad, Kerala-679514
           </p>
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <img src="/fssai.png" alt="FSSAI Logo" className="h-6 w-auto" />
-            <p className="text-gray-400 text-sm">
-              FSSAI License No: 11325009000514
-            </p>
-          </div>
+
         </div>
       </div>
     </footer>

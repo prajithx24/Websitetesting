@@ -10,7 +10,7 @@ A modern, responsive website for Royal Taste Food Products showcasing authentic 
 - **WhatsApp Ordering**: Direct ordering via WhatsApp (919388051003)
 - **Contact Form**: Integrated contact form with database storage
 - **Responsive Design**: Mobile-first design with Tailwind CSS
-- **FSSAI Certified**: Trust indicators and certification display
+
 
 ## 🛠️ Tech Stack
 
@@ -114,7 +114,7 @@ royaltasteweb/
 - **Phone**: 919388051003
 - **Email**: royaltastefoodproducts@gmail.com
 - **Address**: SREEBHADRA GROUP OF CONCERNS, 8/125A, SB COMPLEX, PALAKKAD MAIN ROAD, NEAR SREEKRISHNAPURAM POLICE STATION, THIRUVAZHIYODE PO, Palakkad, Kerala-679514
-- **FSSAI License**: 11325009000514
+
 
 ## 🔧 Development Scripts
 
