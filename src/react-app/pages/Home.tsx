@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Star, Award, Truck, ChefHat, Heart, ArrowRight, MapPin } from 'lucide-react';
 import WhatsAppButton from '../components/WhatsAppButton';
 import AddToCartButton from '../components/AddToCartButton';
@@ -8,7 +8,7 @@ const featuredProducts = [
   {
     id: 1,
     name: "Steamed Puttupodi",
-    image: "STEAMED PUTTU POWDER.jpg",
+    image: "steamed-puttu-powder.jpg",
     weightOptions: [
       { weight: "500g", price: "₹55" },
       { weight: "1kg", price: "₹100" }
@@ -18,7 +18,7 @@ const featuredProducts = [
   {
     id: 18,
     name: "Muringa Leaves Powder",
-    image: "muringa leaves powder.jpg",
+    image: "muringa-leaves-powder.jpg",
     weightOptions: [
       { weight: "250g", price: "₹180" }
     ],
@@ -27,7 +27,7 @@ const featuredProducts = [
   {
     id: 7,
     name: "Navara Puttupodi",
-    image: "NAVARA PUTTU POWDER.jpg",
+    image: "navara-puttu-powder.jpg",
     weightOptions: [
       { weight: "500g", price: "₹150" },
       { weight: "1kg", price: "₹290" }
@@ -36,15 +36,10 @@ const featuredProducts = [
   }
 ];
 
-// 2. Add dynamic image resolver using import.meta.glob
-const imageModules = import.meta.glob('/src/assets/product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
+// 2. Resolve images from the public/product-images directory
 function getImageUrl(filename: string): string {
-  const entry = Object.entries(imageModules).find(([path]) => path.toLowerCase().endsWith(`/${filename.toLowerCase()}`));
-  if (!entry) {
-    // Return a fallback image instead of logging
-    return '/placeholder.jpg';
-  }
-  return entry[1] as string;
+  // Images in the `public` directory are served from the root.
+  return `/product-images/${filename}`;
 }
 
 export default function Home() {
@@ -87,7 +82,7 @@ export default function Home() {
             <div className="relative mt-0 md:mt-[-40px]">
               <div className="aspect-[9/16] w-full max-h-[70vh] md:pt-5 md:pb-8">
                 <img 
-                  src="/assets/herosectionimage.png" 
+                  src={getImageUrl("herosectionimage.png")} 
                   alt="Authentic Kerala Flavours" 
                   className="w-full h-full object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   style={{ aspectRatio: '9/16' }}
