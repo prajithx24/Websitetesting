@@ -128,7 +128,7 @@ weightOptions: [
 
 rating: 4.9,
 
-image: "MORINGA LEAVES PUTTU POWDER.jpg",
+image: "muringa-leaves-powder.jpg",
 
 description: "Superfood moringa leaves mixed puttu powder, packed with nutrients."
 
@@ -152,7 +152,7 @@ weightOptions: [
 
 rating: 4.7,
 
-image: "WHEAT MORINGA PUTTU POWDER.jpg",
+image: "muringa leaves powder.jpg",
 
 description: "Wholesome wheat and moringa combination for nutritious puttu."
 
