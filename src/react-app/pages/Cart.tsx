@@ -86,7 +86,7 @@ export default function Cart() {
               <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6 border border-amber-100">
                 <div className="flex items-center gap-4">
                   <img 
-                    src={getImageUrl(item.image)} 
+                    src={`/product-images/${item.image}`}
                     alt={item.name}
                     className="w-24 h-24 object-cover rounded-lg"
                   />
