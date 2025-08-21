@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import RoyalTasteLogo from '/ROYAL LOGO ONLY.svg';
 
 export default function Footer() {
