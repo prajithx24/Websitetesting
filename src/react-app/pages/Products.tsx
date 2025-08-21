@@ -104,7 +104,7 @@ weightOptions: [
 
 rating: 4.8,
 
-image: "BEETROOT PUTTU POWDER.jpg",
+image: "BEETROOTPUTTUPOWDER.jpg",
 
 description: "Natural beetroot-infused puttu powder with vibrant color and taste."
 
@@ -200,7 +200,7 @@ weightOptions: [
 
 rating: 4.6,
 
-image: "15.png",
+image: "TAPIOCA PUTTU POWDER.jpg",
 
 description: "Traditional tapioca puttu powder, a Kerala breakfast staple."
 
@@ -272,7 +272,7 @@ weightOptions: [
 
 rating: 4.8,
 
-image: "13.png",
+image: "CARROTPUTTUPOWDER.jpg",
 
 description: "Nutritious carrot-infused puttu powder with natural sweetness and vibrant color."
 
