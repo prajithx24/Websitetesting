@@ -176,7 +176,7 @@ weightOptions: [
 
 rating: 4.9,
 
-image: "NAVARA PUTTU POWDER.jpg",
+image: "navara-puttu-powder.jpg",
 
 description: "Premium Navara rice puttu powder, an ancient Kerala medicinal rice."
 
@@ -410,7 +410,7 @@ weightOptions: [
 
 rating: 4.9,
 
-image: "banana powder.jpg",
+image: "bananapowder.jpg",
 
 description: "Natural banana powder, excellent for baby food and health drinks."
 
@@ -456,7 +456,7 @@ weightOptions: [
 
 rating: 4.7,
 
-image: "beetroot podi.jpg",
+image: "BEETROOTPodi.jpg",
 
 description: "Natural beetroot powder for coloring and nutrition."
 
