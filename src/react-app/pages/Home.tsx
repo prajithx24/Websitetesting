@@ -8,7 +8,7 @@ const featuredProducts = [
   {
     id: 1,
     name: "Steamed Puttupodi",
-    image: "steamed-puttu-powder.jpg",
+    image: "STEAMED PUTTU POWDER.jpg",
     weightOptions: [
       { weight: "500g", price: "₹55" },
       { weight: "1kg", price: "₹100" }
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="relative mt-0 md:mt-[-40px]">
               <div className="aspect-[9/16] w-full max-h-[70vh] md:pt-5 md:pb-8">
                 <img 
-                  src={getImageUrl("herosectionimage.png")} 
+                  src="/assets/herosectionimage.png"
                   alt="Authentic Kerala Flavours" 
                   className="w-full h-full object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   style={{ aspectRatio: '9/16' }}
