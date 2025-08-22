@@ -3,17 +3,6 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import WhatsAppButton from '../components/WhatsAppButton';
 
-// Add dynamic image resolver
-const imageModules = import.meta.glob('/src/product-images/*.{jpg,JPG,jpeg,png}', { eager: true, as: 'url' });
-function getImageUrl(filename: string): string {
-  const entry = Object.entries(imageModules).find(([path]) => path.toLowerCase().endsWith(`/${filename.toLowerCase()}`));
-  if (!entry) {
-    // Return a fallback image instead of logging
-    return '/placeholder.jpg';
-  }
-  return entry[1] as string;
-}
-
 export default function Cart() {
   const { items, updateQuantity, removeFromCart, clearCart, getTotalItems, getTotalPrice } = useCart();
 
